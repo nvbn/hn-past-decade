@@ -14,5 +14,9 @@ export default makeStyles(theme => ({
   },
   input: {
     width: "100%",
-  }
+  },
+  plotContainer: {
+    width: "100%",
+    height: "100%",
+  },
 }));
