@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
+import { useLocation, useHistory } from "react-router-dom";
 import {
   fetchTSKeywords,
   TSKeywords,
   fetchRankedKeyword,
   RankedKeyword,
+  defaultResolution,
+  defaultKeywords,
 } from "../../data";
 import Header from "./Header";
 import Graph from "./Graph";
@@ -15,13 +18,26 @@ import useStyles from "./useStyles";
 export default () => {
   const classes = useStyles();
 
+  const location = useLocation();
+  const locationParams = new URLSearchParams(location.search);
+  const res = locationParams.get('res');
+  const kws = locationParams.get('kws');
+  const { push } = useHistory();
+
   const [rankedKeywords, setRankedKeywords] = useState<RankedKeyword[]>();
   useEffect(() => {
     fetchRankedKeyword().then(setRankedKeywords);
   }, []);
 
-  const [resolution, setResolution] = useState("M");
-  const [selected, setSelected] = useState(["ruby", "python"]);
+  const [resolution, setResolution] = useState(res || defaultResolution);
+  const [selected, setSelected] = useState(kws ? kws.split(',') : defaultKeywords);
+
+  useEffect(() => {
+    const params = new URLSearchParams();
+    params.set('res', resolution);
+    params.set('kws', selected.join(','));
+    push(`${window.location.pathname}?${params.toString()}`);
+  }, [push, resolution, selected]);
 
   const [tsKeywords, setTSKeywords] = useState<TSKeywords>();
   useEffect(() => {

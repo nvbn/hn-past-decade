@@ -28,3 +28,7 @@ export const fetchTSKeywords = async (
 
   return result;
 };
+
+export const defaultResolution = "M";
+
+export const defaultKeywords = ['facebook', 'amazon', 'apple', 'netflix', 'google'];
