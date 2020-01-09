@@ -11,10 +11,13 @@ export type Presets = {
 };
 
 export const fetchRankedKeyword = async (): Promise<RankedKeyword[]> => {
-  const response = await fetch(`/dataset/hn/keywords.json`);
+  const response = await fetch(`${urlPrefix}/dataset/hn/keywords.json`);
 
   return await response.json();
 };
+
+const urlPrefix =
+  process.env.NODE_ENV === "production" ? "/hn-past-decade" : "";
 
 export const fetchTSKeywords = async (
   resolution: string,
@@ -24,7 +27,9 @@ export const fetchTSKeywords = async (
 
   for (const keyword of keywords) {
     const response = await fetch(
-      `/dataset/hn/ts/${resolution}/${encodeURIComponent(keyword)}.json`,
+      `${urlPrefix}/dataset/hn/ts/${resolution}/${encodeURIComponent(
+        keyword,
+      )}.json`,
     );
 
     result[keyword] = await response.json();
@@ -34,7 +39,7 @@ export const fetchTSKeywords = async (
 };
 
 export const fetchPresets = async (): Promise<Presets> => {
-  const response = await fetch(`/dataset/hn/presets.json`);
+  const response = await fetch(`${urlPrefix}/dataset/hn/presets.json`);
 
   return await response.json();
 };
