@@ -83,21 +83,21 @@ export default ({
           />
         </FormControl>
       </div>
-      <br/>
+      <br />
       <div>
         <FormControl>
-            <InputLabel id="preset-label">Preset</InputLabel>
-            <Select
-              labelId="preset-label"
-              onChange={changeSelectedPreset}
-              className={classes.input}
-              displayEmpty
-            >
-              {Object.keys(presets).map((preset) => (
-                <MenuItem value={presets[preset]}>{preset}</MenuItem>
-              ))}
-            </Select>
-          </FormControl>
+          <InputLabel id="preset-label">Preset</InputLabel>
+          <Select
+            labelId="preset-label"
+            onChange={changeSelectedPreset}
+            className={classes.input}
+            displayEmpty
+          >
+            {Object.keys(presets).map(preset => (
+              <MenuItem value={presets[preset]}>{preset}</MenuItem>
+            ))}
+          </Select>
+        </FormControl>
       </div>
     </Paper>
   );

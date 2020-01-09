@@ -22,8 +22,8 @@ export default () => {
 
   const location = useLocation();
   const locationParams = new URLSearchParams(location.search);
-  const res = locationParams.get('res');
-  const kws = locationParams.get('kws');
+  const res = locationParams.get("res");
+  const kws = locationParams.get("kws");
   const { push } = useHistory();
 
   const [rankedKeywords, setRankedKeywords] = useState<RankedKeyword[]>();
@@ -34,15 +34,17 @@ export default () => {
   const [presets, setPresets] = useState<Presets>();
   useEffect(() => {
     fetchPresets().then(setPresets);
-  }, [])
+  }, []);
 
   const [resolution, setResolution] = useState(res || defaultResolution);
-  const [selected, setSelected] = useState(kws ? kws.split(',') : defaultKeywords);
+  const [selected, setSelected] = useState(
+    kws ? kws.split(",") : defaultKeywords,
+  );
 
   useEffect(() => {
     const params = new URLSearchParams();
-    params.set('res', resolution);
-    params.set('kws', selected.join(','));
+    params.set("res", resolution);
+    params.set("kws", selected.join(","));
     push(`${window.location.pathname}?${params.toString()}`);
   }, [push, resolution, selected]);
 

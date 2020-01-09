@@ -7,8 +7,8 @@ export type TSKeywords = {
 export type RankedKeyword = [string, number];
 
 export type Presets = {
-  [name: string]: string[],
-}
+  [name: string]: string[];
+};
 
 export const fetchRankedKeyword = async (): Promise<RankedKeyword[]> => {
   const response = await fetch(`/dataset/hn/keywords.json`);
@@ -41,4 +41,10 @@ export const fetchPresets = async (): Promise<Presets> => {
 
 export const defaultResolution = "M";
 
-export const defaultKeywords = ['facebook', 'amazon', 'apple', 'netflix', 'google'];
+export const defaultKeywords = [
+  "facebook",
+  "amazon",
+  "apple",
+  "netflix",
+  "google",
+];
