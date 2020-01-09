@@ -1,0 +1,6 @@
+requests
+pandas
+numpy
+spacy
+lxml
+jupyter
