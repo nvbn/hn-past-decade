@@ -9,6 +9,8 @@ import {
   RankedKeyword,
   defaultResolution,
   defaultKeywords,
+  fetchPresets,
+  Presets,
 } from "../../data";
 import Header from "./Header";
 import Graph from "./Graph";
@@ -28,6 +30,11 @@ export default () => {
   useEffect(() => {
     fetchRankedKeyword().then(setRankedKeywords);
   }, []);
+
+  const [presets, setPresets] = useState<Presets>();
+  useEffect(() => {
+    fetchPresets().then(setPresets);
+  }, [])
 
   const [resolution, setResolution] = useState(res || defaultResolution);
   const [selected, setSelected] = useState(kws ? kws.split(',') : defaultKeywords);
@@ -54,13 +61,14 @@ export default () => {
         <Container maxWidth="lg">
           <Grid container spacing={3}>
             <Grid item md={3} xs={12}>
-              {rankedKeywords && (
+              {rankedKeywords && presets && (
                 <Options
                   initialResolution={resolution}
                   onResolutionChange={setResolution}
                   initialSelected={selected}
                   onSelectedChange={setSelected}
                   rankedKeywords={rankedKeywords}
+                  presets={presets}
                 />
               )}
             </Grid>

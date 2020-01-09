@@ -6,6 +6,10 @@ export type TSKeywords = {
 
 export type RankedKeyword = [string, number];
 
+export type Presets = {
+  [name: string]: string[],
+}
+
 export const fetchRankedKeyword = async (): Promise<RankedKeyword[]> => {
   const response = await fetch(`/dataset/hn/keywords.json`);
 
@@ -27,6 +31,12 @@ export const fetchTSKeywords = async (
   }
 
   return result;
+};
+
+export const fetchPresets = async (): Promise<Presets> => {
+  const response = await fetch(`/dataset/hn/presets.json`);
+
+  return await response.json();
 };
 
 export const defaultResolution = "M";

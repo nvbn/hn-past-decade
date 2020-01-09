@@ -5,7 +5,7 @@ import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import { MultipleSelect } from "react-select-material-ui";
-import { RankedKeyword } from "../../data";
+import { RankedKeyword, Presets } from "../../data";
 import useStyles from "./useStyles";
 
 export default ({
@@ -14,12 +14,14 @@ export default ({
   onResolutionChange,
   onSelectedChange,
   rankedKeywords,
+  presets,
 }: {
   initialResolution: string;
   initialSelected: string[];
   onResolutionChange: (resolution: string) => void;
   onSelectedChange: (selected: string[]) => void;
   rankedKeywords: RankedKeyword[];
+  presets: Presets;
 }) => {
   const classes = useStyles();
 
@@ -36,6 +38,15 @@ export default ({
   const [selected, setSelected] = useState(initialSelected);
   const changeSelected = useCallback(
     (values: string[]) => {
+      setSelected(values);
+      onSelectedChange(values);
+    },
+    [onSelectedChange, setSelected],
+  );
+
+  const changeSelectedPreset = useCallback(
+    (event: React.ChangeEvent<{ value: unknown }>) => {
+      const values = event.target.value as string[];
       setSelected(values);
       onSelectedChange(values);
     },
@@ -71,6 +82,22 @@ export default ({
             onChange={changeSelected}
           />
         </FormControl>
+      </div>
+      <br/>
+      <div>
+        <FormControl>
+            <InputLabel id="preset-label">Preset</InputLabel>
+            <Select
+              labelId="preset-label"
+              onChange={changeSelectedPreset}
+              className={classes.input}
+              displayEmpty
+            >
+              {Object.keys(presets).map((preset) => (
+                <MenuItem value={presets[preset]}>{preset}</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
       </div>
     </Paper>
   );
