@@ -91,6 +91,7 @@ export default ({
             labelId="preset-label"
             onChange={changeSelectedPreset}
             className={classes.input}
+            value={selected}
             displayEmpty
           >
             {Object.keys(presets).map(preset => (

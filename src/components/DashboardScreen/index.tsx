@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
-import LinearProgress from '@material-ui/core/LinearProgress';
+import LinearProgress from "@material-ui/core/LinearProgress";
 import { useLocation, useHistory } from "react-router-dom";
 import {
   fetchTSKeywords,
@@ -64,7 +64,7 @@ export default () => {
         <Container maxWidth="lg">
           <Grid container spacing={3}>
             <Grid item md={3} xs={12}>
-              {(rankedKeywords && presets) ? (
+              {rankedKeywords && presets ? (
                 <Options
                   initialResolution={resolution}
                   onResolutionChange={setResolution}
@@ -73,11 +73,17 @@ export default () => {
                   rankedKeywords={rankedKeywords}
                   presets={presets}
                 />
-              ) : (<LinearProgress />)}
+              ) : (
+                <LinearProgress />
+              )}
             </Grid>
 
             <Grid item md={9} xs={12}>
-              {tsKeywords ? (<Graph tsKeywords={tsKeywords} />) : (<LinearProgress />)}
+              {tsKeywords ? (
+                <Graph tsKeywords={tsKeywords} />
+              ) : (
+                <LinearProgress />
+              )}
             </Grid>
           </Grid>
         </Container>
