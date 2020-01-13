@@ -5,7 +5,13 @@ import { SizeMe } from "react-sizeme";
 import useStyles from "./useStyles";
 import { TSKeywords } from "../../data";
 
-export default ({ tsKeywords, dates }: { tsKeywords: TSKeywords, dates: string[] }) => {
+export default ({
+  tsKeywords,
+  dates,
+}: {
+  tsKeywords: TSKeywords;
+  dates: string[];
+}) => {
   const classes = useStyles();
 
   return (

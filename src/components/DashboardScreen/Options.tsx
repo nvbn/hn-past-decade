@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useMemo } from "react";
 import Paper from "@material-ui/core/Paper";
 import MenuItem from "@material-ui/core/MenuItem";
 import InputLabel from "@material-ui/core/InputLabel";
@@ -7,6 +7,8 @@ import Select from "@material-ui/core/Select";
 import { MultipleSelect } from "react-select-material-ui";
 import { RankedKeyword, Presets } from "../../data";
 import useStyles from "./useStyles";
+
+const keywordsToPresetKey = (keywords: string[]) => keywords.sort().join(",");
 
 export default ({
   initialResolution,
@@ -35,22 +37,38 @@ export default ({
     [onResolutionChange, setResolution],
   );
 
+  const selectedToPreset = useMemo(
+    () =>
+      new Map(
+        Object.keys(presets).map(presetName => [
+          keywordsToPresetKey(presets[presetName]),
+          presetName,
+        ]),
+      ),
+    [presets],
+  );
+
   const [selected, setSelected] = useState(initialSelected);
+  const [selectedPreset, setSelectedPreset] = useState(
+    selectedToPreset.get(keywordsToPresetKey(selected)),
+  );
   const changeSelected = useCallback(
     (values: string[]) => {
       setSelected(values);
       onSelectedChange(values);
+      setSelectedPreset(selectedToPreset.get(keywordsToPresetKey(values)));
     },
-    [onSelectedChange, setSelected],
+    [onSelectedChange, setSelected, selectedToPreset],
   );
 
   const changeSelectedPreset = useCallback(
     (event: React.ChangeEvent<{ value: unknown }>) => {
-      const values = event.target.value as string[];
-      setSelected(values);
-      onSelectedChange(values);
+      const preset = event.target.value as string;
+      setSelected(presets[preset]);
+      onSelectedChange(presets[preset]);
+      setSelectedPreset(preset);
     },
-    [onSelectedChange, setSelected],
+    [onSelectedChange, setSelected, presets],
   );
 
   return (
@@ -91,11 +109,13 @@ export default ({
             labelId="preset-label"
             onChange={changeSelectedPreset}
             className={classes.input}
-            value={selected}
+            value={selectedPreset || ""}
             displayEmpty
           >
             {Object.keys(presets).map(preset => (
-              <MenuItem value={presets[preset]}>{preset}</MenuItem>
+              <MenuItem value={preset} key={`preset-${preset}`}>
+                {preset}
+              </MenuItem>
             ))}
           </Select>
         </FormControl>

@@ -42,8 +42,12 @@ export const fetchPresets = async (): Promise<Presets> => {
   return await response.json();
 };
 
-export const fetchResolutionDates = async (resolution: string): Promise<string[]> => {
-  const response = await fetch(`${urlPrefix}/dataset/hn/ts/${resolution}_dates.json`);
+export const fetchResolutionDates = async (
+  resolution: string,
+): Promise<string[]> => {
+  const response = await fetch(
+    `${urlPrefix}/dataset/hn/ts/${resolution}_dates.json`,
+  );
 
   return await response.json();
 };
