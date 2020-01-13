@@ -12,6 +12,7 @@ import {
   defaultKeywords,
   fetchPresets,
   Presets,
+  fetchResolutionDates,
 } from "../../data";
 import Header from "./Header";
 import Graph from "./Graph";
@@ -41,6 +42,11 @@ export default () => {
   const [selected, setSelected] = useState(
     kws ? kws.split(",") : defaultKeywords,
   );
+
+  const [dates, setDates] = useState<string[]>();
+  useEffect(() => {
+    fetchResolutionDates(resolution).then(setDates);
+  }, [resolution]);
 
   useEffect(() => {
     const params = new URLSearchParams();
@@ -79,8 +85,8 @@ export default () => {
             </Grid>
 
             <Grid item md={9} xs={12}>
-              {tsKeywords ? (
-                <Graph tsKeywords={tsKeywords} />
+              {tsKeywords && dates ? (
+                <Graph tsKeywords={tsKeywords} dates={dates} />
               ) : (
                 <LinearProgress />
               )}

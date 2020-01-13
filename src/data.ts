@@ -1,7 +1,5 @@
-export type TSEntry = [string, number];
-
 export type TSKeywords = {
-  [keyword: string]: TSEntry[];
+  [keyword: string]: number[];
 };
 
 export type RankedKeyword = [string, number];
@@ -40,6 +38,12 @@ export const fetchTSKeywords = async (
 
 export const fetchPresets = async (): Promise<Presets> => {
   const response = await fetch(`${urlPrefix}/dataset/hn/presets.json`);
+
+  return await response.json();
+};
+
+export const fetchResolutionDates = async (resolution: string): Promise<string[]> => {
+  const response = await fetch(`${urlPrefix}/dataset/hn/ts/${resolution}_dates.json`);
 
   return await response.json();
 };

@@ -5,7 +5,7 @@ import { SizeMe } from "react-sizeme";
 import useStyles from "./useStyles";
 import { TSKeywords } from "../../data";
 
-export default ({ tsKeywords }: { tsKeywords: TSKeywords }) => {
+export default ({ tsKeywords, dates }: { tsKeywords: TSKeywords, dates: string[] }) => {
   const classes = useStyles();
 
   return (
@@ -18,8 +18,8 @@ export default ({ tsKeywords }: { tsKeywords: TSKeywords }) => {
                 type: "scatter",
                 mode: "lines",
                 name: keyword,
-                x: tsKeywords[keyword].map(([created, _]) => created),
-                y: tsKeywords[keyword].map(([_, rank]) => rank),
+                x: dates,
+                y: tsKeywords[keyword],
               }))}
               layout={{ width: size.width || 0, height: size.height || 0 }}
             />
