@@ -6,6 +6,7 @@ import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import { MultipleSelect } from "react-select-material-ui";
 import { RankedKeyword, Presets } from "../../data";
+import * as constants from "../../constants";
 import { useStyles } from "./styles";
 
 const keywordsToPresetKey = (keywords: string[]) => keywords.sort().join(",");
@@ -82,11 +83,11 @@ export default ({
             onChange={changeResolution}
             className={classes.input}
           >
-            <MenuItem value="D">Day</MenuItem>
-            <MenuItem value="W">Week</MenuItem>
-            <MenuItem value="M">Month</MenuItem>
-            <MenuItem value="Q">Quarter</MenuItem>
-            <MenuItem value="Y">Year</MenuItem>
+            {Object.keys(constants.RESOLUTION_TO_NAME).map(resolution => (
+              <MenuItem value={resolution} key={`item-${resolution}`}>
+                {constants.RESOLUTION_TO_NAME[resolution]}
+              </MenuItem>
+            ))}
           </Select>
         </FormControl>
       </div>

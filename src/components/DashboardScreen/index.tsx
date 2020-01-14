@@ -8,12 +8,11 @@ import {
   TSKeywords,
   fetchRankedKeyword,
   RankedKeyword,
-  defaultResolution,
-  defaultKeywords,
   fetchPresets,
   Presets,
   fetchResolutionDates,
 } from "../../data";
+import * as constants from "../../constants";
 import Header from "./Header";
 import Graph from "./Graph";
 import Options from "./Options";
@@ -24,8 +23,8 @@ export default () => {
 
   const location = useLocation();
   const locationParams = new URLSearchParams(location.search);
-  const res = locationParams.get("res");
-  const kws = locationParams.get("kws");
+  const res = locationParams.get(constants.RESOLUTION_URL_PARAM);
+  const kws = locationParams.get(constants.KEYWORDS_URL_PARAM);
   const { push } = useHistory();
 
   const [rankedKeywords, setRankedKeywords] = useState<RankedKeyword[]>();
@@ -38,9 +37,11 @@ export default () => {
     fetchPresets().then(setPresets);
   }, []);
 
-  const [resolution, setResolution] = useState(res || defaultResolution);
+  const [resolution, setResolution] = useState(
+    res || constants.defaultResolution,
+  );
   const [selected, setSelected] = useState(
-    kws ? kws.split(",") : defaultKeywords,
+    kws ? kws.split(",") : constants.defaultKeywords,
   );
 
   const [dates, setDates] = useState<string[]>();
@@ -50,8 +51,8 @@ export default () => {
 
   useEffect(() => {
     const params = new URLSearchParams();
-    params.set("res", resolution);
-    params.set("kws", selected.join(","));
+    params.set(constants.RESOLUTION_URL_PARAM, resolution);
+    params.set(constants.KEYWORDS_URL_PARAM, selected.join(","));
     push(`${window.location.pathname}?${params.toString()}`);
   }, [push, resolution, selected]);
 
