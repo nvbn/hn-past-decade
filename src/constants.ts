@@ -22,3 +22,11 @@ export const RESOLUTION_TO_NAME: { [key: string]: string } = {
   Q: "Quarter",
   Y: "Year",
 };
+
+export const RESOLUTION_TO_TITLE: { [key: string]: string } = {
+  D: "Daily",
+  W: "Weekly",
+  M: "Monthly",
+  Q: "Quarterly",
+  Y: "Yearly",
+};

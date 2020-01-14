@@ -85,7 +85,11 @@ export default () => {
 
             <Grid item md={9} xs={12}>
               {tsKeywords && dates ? (
-                <Graph tsKeywords={tsKeywords} dates={dates} />
+                <Graph
+                  tsKeywords={tsKeywords}
+                  dates={dates}
+                  resolution={resolution}
+                />
               ) : (
                 <LinearProgress />
               )}
