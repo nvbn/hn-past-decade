@@ -17,7 +17,7 @@ import {
 import Header from "./Header";
 import Graph from "./Graph";
 import Options from "./Options";
-import useStyles from "./useStyles";
+import { useStyles } from "./styles";
 
 export default () => {
   const classes = useStyles();

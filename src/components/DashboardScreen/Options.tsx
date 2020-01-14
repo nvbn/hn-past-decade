@@ -6,7 +6,7 @@ import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import { MultipleSelect } from "react-select-material-ui";
 import { RankedKeyword, Presets } from "../../data";
-import useStyles from "./useStyles";
+import { useStyles } from "./styles";
 
 const keywordsToPresetKey = (keywords: string[]) => keywords.sort().join(",");
 

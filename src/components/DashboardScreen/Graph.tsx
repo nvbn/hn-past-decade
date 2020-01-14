@@ -1,8 +1,14 @@
-import React, { useState, useCallback, useLayoutEffect, useRef } from "react";
+import React, {
+  useState,
+  useCallback,
+  useLayoutEffect,
+  useRef,
+  useEffect,
+} from "react";
 import Plot from "react-plotly.js";
 import Paper from "@material-ui/core/Paper";
-import useStyles from "./useStyles";
 import { TSKeywords } from "../../data";
+import { useStyles, MIN_PLOT_HEIGHT, PLOT_MARGIN } from "./styles";
 
 export default ({
   tsKeywords,
@@ -23,12 +29,17 @@ export default ({
     }
 
     const bounding = containerRef.current.getBoundingClientRect();
+    let plotHeight =
+      document.documentElement.clientHeight - bounding.top - PLOT_MARGIN;
+    if (plotHeight < MIN_PLOT_HEIGHT) {
+      plotHeight = MIN_PLOT_HEIGHT;
+    }
 
-    setHeight(bounding.height);
+    setHeight(plotHeight);
     setWidth(bounding.width);
   }, [containerRef]);
 
-  useCallback(resize, [containerRef]);
+  useEffect(resize, [containerRef]);
   useLayoutEffect(() => {
     window.addEventListener("resize", resize);
 
