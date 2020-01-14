@@ -57,7 +57,7 @@ export default ({
             x: dates,
             y: tsKeywords[keyword],
           }))}
-          layout={{ width, height }}
+          layout={{ width, height, title: Object.keys(tsKeywords).join(", ") }}
         />
       </div>
     </Paper>
