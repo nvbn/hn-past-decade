@@ -1,4 +1,4 @@
-export const defaultResolution = "M";
+export const defaultResolution = "Q";
 
 export const defaultKeywords = [
   "facebook",
