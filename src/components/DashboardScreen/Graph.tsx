@@ -47,6 +47,12 @@ export default ({ tsKeywords, dates, resolution }: Props) => {
     return () => window.removeEventListener("resize", resize);
   }, [resize]);
 
+  const title = Object.keys(tsKeywords).length
+    ? `${
+        constants.RESOLUTION_TO_TITLE[resolution]
+      } amount of submissions with ${Object.keys(tsKeywords).join(", ")}`
+    : "No topics selected";
+
   return (
     <Paper>
       <div className={classes.plotContainer} ref={containerRef}>
@@ -58,13 +64,7 @@ export default ({ tsKeywords, dates, resolution }: Props) => {
             x: dates,
             y: tsKeywords[keyword],
           }))}
-          layout={{
-            width,
-            height,
-            title: `${
-              constants.RESOLUTION_TO_TITLE[resolution]
-            } amount of submissions with ${Object.keys(tsKeywords).join(", ")}`,
-          }}
+          layout={{ width, height, title }}
         />
       </div>
     </Paper>
