@@ -5,13 +5,11 @@ import LinearProgress from "@material-ui/core/LinearProgress";
 import { useLocation, useHistory } from "react-router-dom";
 import {
   fetchTSKeywords,
-  TSKeywords,
   fetchRankedKeyword,
-  RankedKeyword,
   fetchPresets,
-  Presets,
   fetchResolutionDates,
 } from "../../data";
+import { TSKeywords, RankedKeyword, Presets } from "../../types";
 import * as constants from "../../constants";
 import Header from "./Header";
 import Graph from "./Graph";

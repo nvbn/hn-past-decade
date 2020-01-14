@@ -5,11 +5,20 @@ import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import { MultipleSelect } from "react-select-material-ui";
-import { RankedKeyword, Presets } from "../../data";
+import { RankedKeyword, Presets } from "../../types";
 import * as constants from "../../constants";
 import { useStyles } from "./styles";
 
 const keywordsToPresetKey = (keywords: string[]) => keywords.sort().join(",");
+
+type Props = {
+  initialResolution: string;
+  initialSelected: string[];
+  onResolutionChange: (resolution: string) => void;
+  onSelectedChange: (selected: string[]) => void;
+  rankedKeywords: RankedKeyword[];
+  presets: Presets;
+};
 
 export default ({
   initialResolution,
@@ -18,14 +27,7 @@ export default ({
   onSelectedChange,
   rankedKeywords,
   presets,
-}: {
-  initialResolution: string;
-  initialSelected: string[];
-  onResolutionChange: (resolution: string) => void;
-  onSelectedChange: (selected: string[]) => void;
-  rankedKeywords: RankedKeyword[];
-  presets: Presets;
-}) => {
+}: Props) => {
   const classes = useStyles();
 
   const [resolution, setResolution] = useState(initialResolution);

@@ -7,16 +7,15 @@ import React, {
 } from "react";
 import Plot from "react-plotly.js";
 import Paper from "@material-ui/core/Paper";
-import { TSKeywords } from "../../data";
+import { TSKeywords } from "../../types";
 import { useStyles, MIN_PLOT_HEIGHT, PLOT_MARGIN } from "./styles";
 
-export default ({
-  tsKeywords,
-  dates,
-}: {
+type Props = {
   tsKeywords: TSKeywords;
   dates: string[];
-}) => {
+};
+
+export default ({ tsKeywords, dates }: Props) => {
   const classes = useStyles();
 
   const [width, setWidth] = useState(0);

@@ -1,14 +1,5 @@
 import * as constants from "./constants";
-
-export type TSKeywords = {
-  [keyword: string]: number[];
-};
-
-export type RankedKeyword = [string, number];
-
-export type Presets = {
-  [name: string]: string[];
-};
+import { TSKeywords, RankedKeyword, Presets } from "./types";
 
 export const fetchRankedKeyword = async (): Promise<RankedKeyword[]> => {
   const response = await fetch(
