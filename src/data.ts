@@ -40,7 +40,7 @@ export const fetchResolutionDates = async (
   resolution: string,
 ): Promise<string[]> => {
   const response = await fetch(
-    `${constants.urlPrefix}/dataset/hn/ts/${resolution}_dates.json`,
+    `${constants.urlPrefix}/dataset/hn/ts/${resolution}_index.json`,
   );
 
   return await response.json();
