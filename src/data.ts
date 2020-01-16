@@ -16,10 +16,10 @@ export const fetchTSKeywords = async (
   const result: TSKeywords = {};
 
   for (const keyword of keywords) {
+    const encodedKeyword = encodeURIComponent(encodeURIComponent(keyword));
+
     const response = await fetch(
-      `${constants.urlPrefix}/dataset/hn/ts/${resolution}/${encodeURIComponent(
-        keyword,
-      )}.json`,
+      `${constants.urlPrefix}/dataset/hn/ts/${resolution}/${encodedKeyword}.json`,
     );
 
     result[keyword] = await response.json();
