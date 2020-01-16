@@ -13,19 +13,22 @@ export const fetchTSKeywords = async (
   resolution: string,
   keywords: string[],
 ): Promise<TSKeywords> => {
-  const result: TSKeywords = {};
+  const responses = await Promise.all(
+    keywords
+      .map(keyword => encodeURIComponent(encodeURIComponent(keyword)))
+      .map(encodedKeyword =>
+        fetch(
+          `${constants.urlPrefix}/dataset/hn/ts/${resolution}/${encodedKeyword}.json`,
+        ),
+      ),
+  );
+  const keywordData = await Promise.all(
+    responses.map(response => response.json()),
+  );
 
-  for (const keyword of keywords) {
-    const encodedKeyword = encodeURIComponent(encodeURIComponent(keyword));
-
-    const response = await fetch(
-      `${constants.urlPrefix}/dataset/hn/ts/${resolution}/${encodedKeyword}.json`,
-    );
-
-    result[keyword] = await response.json();
-  }
-
-  return result;
+  return Object.fromEntries(
+    keywords.map((keyword, n) => [keyword, keywordData[n]]),
+  );
 };
 
 export const fetchPresets = async (): Promise<Presets> => {
