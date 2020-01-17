@@ -13,19 +13,21 @@ export const fetchTSKeywords = async (
   resolution: string,
   keywords: string[],
 ): Promise<TSKeywords> => {
-  // Weird, but without that order is incorrect
-  const lockedKeyword = [...keywords];
-
   const responses = await Promise.all(
-    lockedKeyword
+    keywords
       .map(keyword => encodeURIComponent(encodeURIComponent(keyword)))
-      .map(encodedKeyword => `${constants.urlPrefix}/dataset/hn/ts/${resolution}/${encodedKeyword}.json`)
+      .map(
+        encodedKeyword =>
+          `${constants.urlPrefix}/dataset/hn/ts/${resolution}/${encodedKeyword}.json`,
+      )
       .map(url => fetch(url))
-      .map(response => response.then(resolvedResponse => resolvedResponse.json()))
+      .map(response =>
+        response.then(resolvedResponse => resolvedResponse.json()),
+      ),
   );
 
   return Object.fromEntries(
-    lockedKeyword.map((keyword, n) => [keyword, responses[n]]),
+    keywords.map((keyword, n) => [keyword, responses[n]]),
   );
 };
 

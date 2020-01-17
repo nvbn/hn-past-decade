@@ -10,7 +10,8 @@ import { RankedKeyword, Presets } from "../../types";
 import * as constants from "../../constants";
 import { useStyles } from "./styles";
 
-const keywordsToPresetKey = (keywords: string[]) => keywords.sort().join(",");
+const keywordsToPresetKey = (keywords: string[]) =>
+  [...keywords].sort().join(",");
 
 type Props = {
   initialResolution: string;
